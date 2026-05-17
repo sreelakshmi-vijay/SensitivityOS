@@ -49,6 +49,45 @@
 
             <div id="review-queue"></div>
 
+            <div class="review-form">
+
+                <h3>Submit Review Decision</h3>
+
+                <label>Entity</label>
+                <input type="text" id="review-entity">
+
+                <label>Original Sensitivity</label>
+                <input type="text" id="review-original">
+
+                <label>Corrected Sensitivity</label>
+
+                <select id="review-corrected">
+
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                    <option value="critical">Critical</option>
+
+                </select>
+
+                <label>Relationship</label>
+                <input type="text" id="review-relationship">
+
+                <label>Confidence Adjustment</label>
+                <input
+                    type="number"
+                    id="review-adjustment"
+                    step="0.01"
+                    value="0.05">
+
+                <button id="submit-review">
+                    Submit Review
+                </button>
+
+                <div id="review-response"></div>
+
+            </div>
+
         </section>
 
     </main>

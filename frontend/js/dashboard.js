@@ -3,12 +3,15 @@ async function loadDashboard() {
     const data = await fetchClassificationResults();
 
     renderEntities(data.columns_detected);
+
     renderLLMAnalysis(data.llm_analysis);
+
     renderReviewQueue(data.review_queue);
 
     await renderGraph();
-}
 
+    setupReviewForm();
+}
 function renderEntities(entities) {
 
     const container = document.getElementById("entities");
@@ -81,8 +84,23 @@ function renderReviewQueue(reviewQueue) {
 
         div.innerHTML = `
             <p><strong>${column}</strong></p>
-            <p>Confidence: ${result.confidence}</p>
-            <p>${result.reasoning}</p>
+
+            <p>
+                Confidence:
+                ${result.confidence}
+            </p>
+
+            <p>
+                ${result.reasoning}
+            </p>
+
+            <button
+                onclick="populateReviewForm(
+                    '${column}',
+                    '${result.sensitivity}'
+                )">
+                Review
+            </button>
         `;
 
         container.appendChild(div);
@@ -180,6 +198,70 @@ function getSensitivityColor(sensitivity) {
         default:
             return "#6b7280";
     }
+}
+
+function populateReviewForm(
+    entity,
+    originalSensitivity
+) {
+
+    document.getElementById(
+        "review-entity"
+    ).value = entity;
+
+    document.getElementById(
+        "review-original"
+    ).value = originalSensitivity;
+
+    document.getElementById(
+        "review-relationship"
+    ).value = "strongly_escalates";
+}
+
+function setupReviewForm() {
+
+    const button = document.getElementById(
+        "submit-review"
+    );
+
+    button.addEventListener("click", async () => {
+
+        const payload = {
+
+            entity: document.getElementById(
+                "review-entity"
+            ).value,
+
+            original_sensitivity: document.getElementById(
+                "review-original"
+            ).value,
+
+            corrected_sensitivity: document.getElementById(
+                "review-corrected"
+            ).value,
+
+            relationship: document.getElementById(
+                "review-relationship"
+            ).value,
+
+            confidence_adjustment: parseFloat(
+
+                document.getElementById(
+                    "review-adjustment"
+                ).value
+            )
+        };
+
+        const response = await submitReviewDecision(
+            payload
+        );
+
+        document.getElementById(
+            "review-response"
+        ).innerHTML = `
+            ${response.message}
+        `;
+    });
 }
 
 loadDashboard();

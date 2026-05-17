@@ -58,3 +58,35 @@ body {
     border-radius: 10px;
     background: white;
 }
+
+.review-form {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.review-form input,
+.review-form select {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.review-form button {
+    padding: 12px;
+    border: none;
+    background: #111827;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.review-form button:hover {
+    background: #1f2937;
+}
+
+#review-response {
+    margin-top: 10px;
+    font-weight: bold;
+}
