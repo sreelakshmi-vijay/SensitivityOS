@@ -1,0 +1,84 @@
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+.env/
+.envrc
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# =========================
+# FastAPI / Logs
+# =========================
+*.log
+logs/
+
+# =========================
+# IDEs
+# =========================
+.vscode/
+.idea/
+
+# =========================
+# OS Files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Jupyter
+# =========================
+.ipynb_checkpoints/
+
+# =========================
+# Database / DuckDB
+# =========================
+*.duckdb
+*.db
+*.sqlite3
+
+# =========================
+# Ollama / Local Models
+# =========================
+models/
+ollama_models/
+
+# =========================
+# Environment Variables
+# =========================
+.env.local
+.env.production
+
+# =========================
+# Temporary Scan Outputs
+# =========================
+tmp/
+temp/
+exports/
+scan_results/
+
+# =========================
+# Frontend
+# =========================
+frontend/node_modules/
+frontend/dist/
+
+# =========================
+# Test / Coverage
+# =========================
+.coverage
+htmlcov/
+.pytest_cache/
+
+# =========================
+# Registry Cache
+# =========================
+registry/cache/
