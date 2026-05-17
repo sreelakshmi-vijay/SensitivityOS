@@ -47,7 +47,15 @@ class InferenceEngine:
             results[entity] = {
                 "base_sensitivity": base_sensitivity,
                 "final_sensitivity": final_sensitivity,
-                "connected_entities": connected_nodes
+                "connected_entities": connected_nodes,
+                "reasoning": [
+                    {
+                        "connected_entity": connected,
+                        "relationship": edge_data["relationship"],
+                        "weight": edge_data["weight"]
+                    }
+                    for connected in connected_nodes
+                ]
             }
 
         return results
