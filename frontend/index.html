@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SensitivityOS</title>
+
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+    <header class="header">
+        <h1>SensitivityOS</h1>
+        <p>Contextual Sensitivity Classification Framework</p>
+    </header>
+
+    <main class="container">
+
+        <section class="card">
+
+            <h2>Detected Entities</h2>
+
+            <div id="entities"></div>
+
+        </section>
+
+        <section class="card">
+
+            <h2>LLM Analysis</h2>
+
+            <div id="llm-analysis"></div>
+
+        </section>
+
+        <section class="card">
+
+            <h2>Human Review Queue</h2>
+
+            <div id="review-queue"></div>
+
+        </section>
+
+    </main>
+
+    <script src="js/api.js"></script>
+    <script src="js/dashboard.js"></script>
+
+</body>
+
+</html>
