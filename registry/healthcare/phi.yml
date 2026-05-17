@@ -1,0 +1,14 @@
+nodes:
+  - id: medical_record_number
+    category: healthcare_identifier
+    sensitivity: critical
+
+  - id: prescription
+    category: treatment
+    sensitivity: high
+
+edges:
+  - source: medical_record_number
+    target: prescription
+    relationship: implies_phi
+    weight: 0.95

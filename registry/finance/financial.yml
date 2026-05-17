@@ -1,0 +1,14 @@
+nodes:
+  - id: bank_account
+    category: financial_account
+    sensitivity: critical
+
+  - id: transaction_amount
+    category: transaction
+    sensitivity: high
+
+edges:
+  - source: bank_account
+    target: transaction_amount
+    relationship: financial_exposure
+    weight: 0.9

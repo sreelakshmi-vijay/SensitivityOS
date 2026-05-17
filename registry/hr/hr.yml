@@ -1,0 +1,14 @@
+nodes:
+  - id: performance_rating
+    category: employee_performance
+    sensitivity: medium
+
+  - id: disciplinary_action
+    category: employee_record
+    sensitivity: high
+
+edges:
+  - source: employee_id
+    target: disciplinary_action
+    relationship: hr_escalation
+    weight: 0.85

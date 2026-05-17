@@ -20,7 +20,7 @@ class ClassificationPipeline:
         self.detector = EntityDetector()
 
         self.graph = GraphBuilder.load_graph(
-            "../registry/core/sensitivity_graph.yaml"
+            "../registry"
         )
 
     def classify_file(self, file_path: str):
