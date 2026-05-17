@@ -1,0 +1,36 @@
+nodes:
+  - id: patient_id
+    category: identifier
+    sensitivity: high
+
+  - id: diagnosis
+    category: medical
+    sensitivity: critical
+
+  - id: salary
+    category: financial
+    sensitivity: medium
+
+  - id: employee_id
+    category: identifier
+    sensitivity: medium
+
+  - id: tax_id
+    category: financial_identifier
+    sensitivity: high
+
+edges:
+  - source: patient_id
+    target: diagnosis
+    relationship: implies_phi
+    weight: 0.95
+
+  - source: employee_id
+    target: salary
+    relationship: escalates_financial_sensitivity
+    weight: 0.7
+
+  - source: tax_id
+    target: salary
+    relationship: strongly_escalates
+    weight: 0.9
