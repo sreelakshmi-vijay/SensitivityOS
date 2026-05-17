@@ -5,6 +5,8 @@ async function loadDashboard() {
     renderEntities(data.columns_detected);
     renderLLMAnalysis(data.llm_analysis);
     renderReviewQueue(data.review_queue);
+
+    await renderGraph();
 }
 
 function renderEntities(entities) {
@@ -85,6 +87,99 @@ function renderReviewQueue(reviewQueue) {
 
         container.appendChild(div);
     });
+}
+
+async function renderGraph() {
+
+    const graphData = await fetchGraph();
+
+    const container = document.getElementById("graph");
+
+    const nodes = new vis.DataSet(
+
+        graphData.nodes.map(node => ({
+
+            id: node.id,
+
+            label: node.label,
+
+            color: getSensitivityColor(
+                node.sensitivity
+            ),
+
+            shape: "dot",
+
+            size: 20
+        }))
+    );
+
+    const edges = new vis.DataSet(
+
+        graphData.edges.map(edge => ({
+
+            from: edge.from,
+
+            to: edge.to,
+
+            label: edge.label,
+
+            arrows: "to",
+
+            width: edge.weight * 5
+        }))
+    );
+
+    const data = {
+        nodes,
+        edges
+    };
+
+    const options = {
+
+        physics: {
+            enabled: true
+        },
+
+        edges: {
+            smooth: true,
+            font: {
+                size: 12
+            }
+        },
+
+        nodes: {
+            font: {
+                color: "#fff"
+            }
+        }
+    };
+
+    new vis.Network(
+        container,
+        data,
+        options
+    );
+}
+
+function getSensitivityColor(sensitivity) {
+
+    switch (sensitivity) {
+
+        case "critical":
+            return "#7c3aed";
+
+        case "high":
+            return "#dc2626";
+
+        case "medium":
+            return "#d97706";
+
+        case "low":
+            return "#16a34a";
+
+        default:
+            return "#6b7280";
+    }
 }
 
 loadDashboard();

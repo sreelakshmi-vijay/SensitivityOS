@@ -5,6 +5,7 @@ from app.api.routes.classification import router as classification_router
 from app.core.config import settings
 from app.api.routes.review import router as review_router
 from fastapi.middleware.cors import CORSMiddleware
+from app.api.routes.graph import router as graph_router
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
@@ -23,3 +24,4 @@ app.include_router(health_router)
 app.include_router(classification_router)
 app.include_router(registry_router)
 app.include_router(review_router)
+app.include_router(graph_router)

@@ -8,3 +8,12 @@ async function fetchClassificationResults() {
 
     return await response.json();
 }
+
+async function fetchGraph() {
+
+    const response = await fetch(
+        `${API_BASE_URL}/graph`
+    );
+
+    return await response.json();
+}
