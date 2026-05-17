@@ -1,6 +1,7 @@
-# =========================
+# ==========================================
 # Python
-# =========================
+# ==========================================
+
 __pycache__/
 *.py[cod]
 *$py.class
@@ -8,77 +9,112 @@ __pycache__/
 # Virtual environments
 venv/
 .env/
-.envrc
+.venv/
 
-# Distribution / packaging
+# Python packaging
 build/
 dist/
 *.egg-info/
 
-# =========================
-# FastAPI / Logs
-# =========================
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Type checking
+.mypy_cache/
+.pyre/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# ==========================================
+# FastAPI / App
+# ==========================================
+
 *.log
 logs/
 
-# =========================
-# IDEs
-# =========================
-.vscode/
-.idea/
-
-# =========================
-# OS Files
-# =========================
-.DS_Store
-Thumbs.db
-
-# =========================
-# Jupyter
-# =========================
-.ipynb_checkpoints/
-
-# =========================
-# Database / DuckDB
-# =========================
-*.duckdb
+# SQLite / local DBs
 *.db
 *.sqlite3
 
-# =========================
+# Temp files
+tmp/
+temp/
+
+# ==========================================
+# Environment Variables / Secrets
+# ==========================================
+
+.env
+.env.*
+!.env.example
+
+# API keys / credentials
+secrets/
+credentials/
+
+# ==========================================
 # Ollama / Local Models
-# =========================
+# ==========================================
+
 models/
 ollama_models/
 
-# =========================
-# Environment Variables
-# =========================
-.env.local
-.env.production
+# Large local artifacts
+*.bin
+*.gguf
+*.safetensors
 
-# =========================
-# Temporary Scan Outputs
-# =========================
-tmp/
-temp/
+# ==========================================
+# Data Scanning Outputs
+# ==========================================
+
+scan_outputs/
 exports/
-scan_results/
+reports/
 
-# =========================
-# Frontend
-# =========================
+# Uploaded datasets
+datasets/raw/
+datasets/uploads/
+
+# ==========================================
+# Node / React Frontend
+# ==========================================
+
 frontend/node_modules/
 frontend/dist/
+frontend/build/
 
-# =========================
-# Test / Coverage
-# =========================
-.coverage
-htmlcov/
-.pytest_cache/
+# npm/yarn logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# =========================
-# Registry Cache
-# =========================
-registry/cache/
+# ==========================================
+# IDEs
+# ==========================================
+
+.vscode/
+.idea/
+
+# ==========================================
+# OS Files
+# ==========================================
+
+.DS_Store
+Thumbs.db
+
+# ==========================================
+# Docker
+# ==========================================
+
+.docker/
+
+# ==========================================
+# Misc
+# ==========================================
+
+*.swp
+*.swo
