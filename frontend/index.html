@@ -37,6 +37,41 @@
 
         <section class="card">
 
+            <h2>Analytics Dashboard</h2>
+
+            <div class="analytics-grid">
+
+                <div class="metric-card">
+                    <h3>Total Entities</h3>
+                    <p id="total-entities">0</p>
+                </div>
+
+                <div class="metric-card">
+                    <h3>Critical Items</h3>
+                    <p id="critical-count">0</p>
+                </div>
+
+                <div class="metric-card">
+                    <h3>Review Queue Size</h3>
+                    <p id="review-count">0</p>
+                </div>
+
+            </div>
+
+            <canvas id="sensitivityChart"></canvas>
+
+        </section>
+
+        <section class="card">
+
+            <h2>Explainability Explorer</h2>
+
+            <div id="explainability"></div>
+
+        </section>
+
+        <section class="card">
+
             <h2>LLM Analysis</h2>
 
             <div id="llm-analysis"></div>
@@ -91,6 +126,8 @@
         </section>
 
     </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script
         type="text/javascript"

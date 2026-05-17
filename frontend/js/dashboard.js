@@ -8,10 +8,15 @@ async function loadDashboard() {
 
     renderReviewQueue(data.review_queue);
 
+    renderAnalytics(data);
+
+    renderExplainability(data);
+
     await renderGraph();
 
     setupReviewForm();
 }
+
 function renderEntities(entities) {
 
     const container = document.getElementById("entities");
@@ -261,6 +266,104 @@ function setupReviewForm() {
         ).innerHTML = `
             ${response.message}
         `;
+    });
+}
+
+function renderAnalytics(data) {
+
+    const entities = data.columns_detected;
+
+    const analysis = data.llm_analysis;
+
+    const reviewQueue = data.review_queue;
+
+    document.getElementById(
+        "total-entities"
+    ).innerText = entities.length;
+
+    let criticalCount = 0;
+
+    const sensitivityCounts = {
+
+        low: 0,
+        medium: 0,
+        high: 0,
+        critical: 0
+    };
+
+    Object.values(analysis).forEach(result => {
+
+        const sensitivity = result.sensitivity;
+
+        if (
+            sensitivityCounts[sensitivity]
+            !== undefined
+        ) {
+
+            sensitivityCounts[sensitivity]++;
+        }
+
+        if (sensitivity === "critical") {
+
+            criticalCount++;
+        }
+    });
+
+    document.getElementById(
+        "critical-count"
+    ).innerText = criticalCount;
+
+    document.getElementById(
+        "review-count"
+    ).innerText = Object.keys(
+        reviewQueue
+    ).length;
+
+    renderSensitivityChart(
+        sensitivityCounts
+    );
+}
+
+function renderSensitivityChart(data) {
+
+    const ctx = document.getElementById(
+        "sensitivityChart"
+    );
+
+    new Chart(ctx, {
+
+        type: "bar",
+
+        data: {
+
+            labels: Object.keys(data),
+
+            datasets: [{
+
+                label: "Sensitivity Distribution",
+
+                data: Object.values(data),
+
+                backgroundColor: [
+                    "#16a34a",
+                    "#d97706",
+                    "#dc2626",
+                    "#7c3aed"
+                ]
+            }]
+        },
+
+        options: {
+
+            responsive: true,
+
+            plugins: {
+
+                legend: {
+                    display: false
+                }
+            }
+        }
     });
 }
 
