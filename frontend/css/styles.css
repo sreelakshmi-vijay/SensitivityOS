@@ -143,3 +143,60 @@ body {
 
     padding: 16px 0;
 }
+
+#file-upload {
+
+    margin-bottom: 10px;
+}
+
+#upload-button {
+
+    padding: 12px 20px;
+
+    background: #2563eb;
+
+    color: white;
+
+    border: none;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+}
+
+#upload-button:hover {
+
+    background: #1d4ed8;
+}
+
+#upload-status {
+
+    margin-top: 10px;
+
+    font-weight: bold;
+}
+/* Unified 4-tier vocabulary badges */
+.badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 99px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+.badge.public       { background: #dcfce7; color: #15803d; }
+.badge.internal     { background: #dbeafe; color: #1d4ed8; }
+.badge.confidential { background: #fef3c7; color: #b45309; }
+.badge.restricted   { background: #fee2e2; color: #b91c1c; }
+.badge.review-flag  { background: #fdf2f8; color: #9d174d; }
+
+.upload-card {
+    margin-bottom: 0;
+}
+.upload-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}

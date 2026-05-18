@@ -1,14 +1,32 @@
 nodes:
   - id: medical_record_number
     category: healthcare_identifier
-    sensitivity: critical
+    sensitivity: restricted
 
   - id: prescription
     category: treatment
-    sensitivity: high
+    sensitivity: restricted
+
+  - id: insurance_id
+    category: healthcare_identifier
+    sensitivity: confidential
+
+  - id: date_of_birth
+    category: pii
+    sensitivity: confidential
 
 edges:
   - source: medical_record_number
     target: prescription
     relationship: implies_phi
     weight: 0.95
+
+  - source: date_of_birth
+    target: medical_record_number
+    relationship: re_identifies
+    weight: 0.85
+
+  - source: insurance_id
+    target: medical_record_number
+    relationship: links_phi
+    weight: 0.80

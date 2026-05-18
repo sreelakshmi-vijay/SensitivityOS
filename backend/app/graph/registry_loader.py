@@ -9,14 +9,17 @@ class RegistryLoader:
 
         registry_data = []
 
-        yaml_files = Path(registry_path).rglob("*.yaml")
+        registry_dir = Path(registry_path)
 
-        for yaml_file in yaml_files:
+        yaml_files = list(registry_dir.rglob("*.yaml")) + list(registry_dir.rglob("*.yml"))
 
-            with open(yaml_file, "r") as file:
+        for yaml_file in sorted(set(yaml_files)):
+
+            with open(yaml_file, "r", encoding="utf-8") as file:
 
                 parsed = yaml.safe_load(file)
 
-                registry_data.append(parsed)
+                if parsed and "nodes" in parsed:
+                    registry_data.append(parsed)
 
         return registry_data

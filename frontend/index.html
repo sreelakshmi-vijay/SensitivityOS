@@ -4,9 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>SensitivityOS</title>
-
     <link rel="stylesheet" href="css/styles.css">
 </head>
 
@@ -17,107 +15,93 @@
         <p>Contextual Sensitivity Classification Framework</p>
     </header>
 
+    <section class="card upload-card">
+
+        <h2>Upload Dataset</h2>
+
+        <div class="upload-row">
+            <input type="file" id="file-upload" accept=".csv">
+            <button id="upload-button">Upload &amp; Analyse</button>
+        </div>
+
+        <div id="upload-status"></div>
+
+    </section>
+
     <main class="container">
 
         <section class="card">
-
-            <h2>Detected Entities</h2>
-
-            <div id="entities"></div>
-
+            <h2>Final Classifications</h2>
+            <div id="final-classifications"></div>
         </section>
 
         <section class="card">
-
             <h2>Semantic Sensitivity Graph</h2>
-
             <div id="graph"></div>
-
         </section>
 
         <section class="card">
-
             <h2>Analytics Dashboard</h2>
-
             <div class="analytics-grid">
-
                 <div class="metric-card">
-                    <h3>Total Entities</h3>
+                    <h3>Total Columns</h3>
                     <p id="total-entities">0</p>
                 </div>
-
                 <div class="metric-card">
-                    <h3>Critical Items</h3>
+                    <h3>Restricted</h3>
                     <p id="critical-count">0</p>
                 </div>
-
                 <div class="metric-card">
-                    <h3>Review Queue Size</h3>
+                    <h3>Review Queue</h3>
                     <p id="review-count">0</p>
                 </div>
-
             </div>
-
             <canvas id="sensitivityChart"></canvas>
-
         </section>
 
         <section class="card">
-
             <h2>Explainability Explorer</h2>
-
             <div id="explainability"></div>
-
         </section>
 
         <section class="card">
-
             <h2>LLM Analysis</h2>
-
             <div id="llm-analysis"></div>
-
         </section>
 
         <section class="card">
 
             <h2>Human Review Queue</h2>
-
             <div id="review-queue"></div>
 
             <div class="review-form">
 
                 <h3>Submit Review Decision</h3>
 
-                <label>Entity</label>
-                <input type="text" id="review-entity">
+                <label>Entity (column name)</label>
+                <input type="text" id="review-entity" placeholder="e.g. salary">
 
                 <label>Original Sensitivity</label>
-                <input type="text" id="review-original">
+                <input type="text" id="review-original" placeholder="e.g. internal" readonly>
 
                 <label>Corrected Sensitivity</label>
-
                 <select id="review-corrected">
-
-                    <option value="low">Low</option>
-                    <option value="medium">Medium</option>
-                    <option value="high">High</option>
-                    <option value="critical">Critical</option>
-
+                    <option value="public">Public</option>
+                    <option value="internal">Internal</option>
+                    <option value="confidential">Confidential</option>
+                    <option value="restricted">Restricted</option>
                 </select>
 
                 <label>Relationship</label>
-                <input type="text" id="review-relationship">
+                <input type="text" id="review-relationship" placeholder="e.g. strongly_escalates">
 
-                <label>Confidence Adjustment</label>
-                <input
-                    type="number"
-                    id="review-adjustment"
-                    step="0.01"
-                    value="0.05">
+                <label>Confidence Adjustment (0.01 – 0.20)</label>
+                <input type="number" id="review-adjustment" step="0.01" min="0.01" max="0.20" value="0.05">
 
-                <button id="submit-review">
-                    Submit Review
-                </button>
+                <label>Reviewer Note (optional)</label>
+                <input type="text" id="review-note" placeholder="Optional explanation">
+
+                <button id="submit-review">Submit Review</button>
 
                 <div id="review-response"></div>
 
@@ -128,12 +112,7 @@
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <script
-        type="text/javascript"
-        src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js">
-    </script>
-
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
     <script src="js/api.js"></script>
     <script src="js/dashboard.js"></script>
 

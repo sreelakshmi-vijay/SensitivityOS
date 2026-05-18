@@ -1,14 +1,23 @@
 nodes:
+  - id: employee_id
+    category: identifier
+    sensitivity: internal
+
   - id: performance_rating
     category: employee_performance
-    sensitivity: medium
+    sensitivity: internal
 
   - id: disciplinary_action
     category: employee_record
-    sensitivity: high
+    sensitivity: confidential
 
 edges:
   - source: employee_id
     target: disciplinary_action
     relationship: hr_escalation
     weight: 0.85
+
+  - source: employee_id
+    target: performance_rating
+    relationship: hr_context
+    weight: 0.70

@@ -9,24 +9,18 @@ class LLMClassifier:
     def classify_context(
         cls,
         column_name: str,
-        nearby_columns: list[str]
+        nearby_columns: list
     ):
 
-        prompt = f"""
-You are a data sensitivity classification engine.
+        prompt = f"""You are a data sensitivity classification engine.
 
-Your task is to determine the sensitivity level
-of a database column using contextual reasoning.
+Determine the sensitivity level of a database column using contextual reasoning.
 
-COLUMN:
-{column_name}
+COLUMN: {column_name}
 
-NEARBY COLUMNS:
-{", ".join(nearby_columns)}
+NEARBY COLUMNS IN SAME TABLE: {", ".join(nearby_columns)}
 
-Return ONLY valid JSON in this format:
-Do not include markdown.
-Do not include explanation outside JSON.
+Return ONLY valid JSON. No markdown. No explanation outside the JSON.
 
 {{
     "sensitivity": "...",
@@ -35,8 +29,14 @@ Do not include explanation outside JSON.
     "needs_human_review": true
 }}
 
-Sensitivity levels:
-low, medium, high, critical
+Sensitivity levels (choose exactly one):
+- public      — no restrictions; safe to share openly
+- internal    — staff-only; low risk if disclosed internally
+- confidential — need-to-know; significant risk if exposed (PII, HR data)
+- restricted  — regulated data; legal risk if exposed (PHI, PCI, SSN, financials)
+
+Consider: does the column name suggest PII, financial, or health data?
+Does the combination of this column with nearby columns elevate sensitivity?
 """
 
         response = ollama.chat(
@@ -44,9 +44,9 @@ low, medium, high, critical
             messages=[
                 {
                     "role": "user",
-                    "content": prompt
+                    "content": prompt,
                 }
-            ]
+            ],
         )
 
         return response["message"]["content"]

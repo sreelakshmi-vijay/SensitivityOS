@@ -1,42 +1,35 @@
 # SensitivityOS Registry Specification
 
 Each registry YAML file must contain structured definitions for **nodes** and **edges**.
+Files may use either the `.yaml` or `.yml` extension — both are loaded automatically.
 
 ---
 
 ## Nodes
 
-Nodes represent entities, concepts, or data elements within a domain.
+Nodes represent data concepts, fields, or entity types within a domain.
 
 ```yaml
 nodes:
   - id: unique_identifier
     category: domain_category
-    sensitivity: low | medium | high | critical
+    sensitivity: public | internal | confidential | restricted
 ```
 
-### Fields
+### Sensitivity Tiers
 
-| Field | Description |
-|---|---|
-| `id` | Unique identifier for the node |
-| `category` | Domain-specific classification |
-| `sensitivity` | Risk or confidentiality level |
-
-### Sensitivity Levels
-
-| Level | Meaning |
-|---|---|
-| `low` | Minimal sensitivity |
-| `medium` | Moderate sensitivity |
-| `high` | Significant sensitivity |
-| `critical` | Extremely sensitive or regulated |
+| Tier | Meaning | Regulatory Examples |
+|---|---|---|
+| `public` | No restrictions; safe to share openly | N/A |
+| `internal` | Staff-only; low risk if disclosed internally | General governance |
+| `confidential` | Need-to-know; significant risk if exposed | GDPR Art. 5, CCPA |
+| `restricted` | Regulated data; legal risk if exposed | GDPR Art. 9, HIPAA, PCI-DSS |
 
 ---
 
 ## Edges
 
-Edges define semantic relationships between nodes.
+Edges define semantic relationships between nodes that drive sensitivity escalation.
 
 ```yaml
 edges:
@@ -52,8 +45,21 @@ edges:
 |---|---|
 | `source` | Origin node ID |
 | `target` | Destination node ID |
-| `relationship` | Type of semantic connection |
-| `weight` | Confidence score between `0.0` and `1.0` |
+| `relationship` | Semantic relationship type (e.g. `implies_phi`, `escalates_financial_sensitivity`) |
+| `weight` | Confidence score 0.0–1.0. Escalation only fires at weight ≥ 0.8 |
+
+### Relationship Types
+
+| Type | Meaning |
+|---|---|
+| `implies_phi` | Source field implies the presence of PHI when co-located with target |
+| `escalates_financial_sensitivity` | Source elevates financial sensitivity of target |
+| `strongly_escalates` | High-confidence escalation (use weight ≥ 0.90) |
+| `hr_escalation` | HR-domain sensitivity escalation |
+| `re_identifies` | Source can re-identify an individual when combined with target |
+| `pci_scope` | Source brings target into PCI-DSS scope |
+| `financial_exposure` | Source creates financial exposure for target |
+| `identifies_subject` | Source uniquely identifies the data subject |
 
 ---
 
@@ -63,16 +69,16 @@ edges:
 nodes:
   - id: customer_email
     category: pii
-    sensitivity: high
+    sensitivity: confidential
 
   - id: billing_record
     category: finance
-    sensitivity: critical
+    sensitivity: restricted
 
 edges:
   - source: customer_email
     target: billing_record
-    relationship: linked_to
+    relationship: identifies_subject
     weight: 0.92
 ```
 
@@ -80,18 +86,7 @@ edges:
 
 ## Principles
 
-### Domain-Specific Registries
-
-Registries should focus on a clearly defined domain or context.
-
-### Explainable Relationships
-
-All relationships must be interpretable and semantically meaningful.
-
-### Confidence-Based Weighting
-
-Weights represent confidence, relevance, or strength of association.
-
-### Community Contributions
-
-The specification encourages collaborative extension and improvement by the community.
+- **Domain-specific registries** should focus on a clearly defined domain.
+- **Explainable relationships** must be semantically meaningful and human-readable.
+- **Confidence-based weighting** — weights represent strength of association.
+- **Human feedback updates weights** — reviewer corrections are written back to registry files.

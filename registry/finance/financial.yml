@@ -1,14 +1,32 @@
 nodes:
   - id: bank_account
     category: financial_account
-    sensitivity: critical
+    sensitivity: restricted
 
   - id: transaction_amount
     category: transaction
-    sensitivity: high
+    sensitivity: confidential
+
+  - id: credit_card
+    category: payment
+    sensitivity: restricted
+
+  - id: routing_number
+    category: financial_account
+    sensitivity: restricted
 
 edges:
   - source: bank_account
     target: transaction_amount
     relationship: financial_exposure
-    weight: 0.9
+    weight: 0.90
+
+  - source: credit_card
+    target: transaction_amount
+    relationship: pci_scope
+    weight: 0.95
+
+  - source: routing_number
+    target: bank_account
+    relationship: account_linkage
+    weight: 0.90

@@ -1,0 +1,6 @@
+id,name,email,ssn,credit_card,notes
+1,Alice,alice@example.com,123-45-6789,4111111111111111,Test note 1
+2,Bob,bob@example.com,987-65-4321,5105105105105100,Test note 2
+3,Charlie,charlie@example.com,111-22-3333,4111111111111111,Test note 3
+4,David,david@example.com,444-55-6666,5105105105105100,Test note 4
+5,Eve,eve@example.com,777-88-9999,4111111111111111,Test note 5

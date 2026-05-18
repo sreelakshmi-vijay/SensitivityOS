@@ -1,29 +1,58 @@
 nodes:
-- id: patient_id
-  category: identifier
-  sensitivity: high
-- id: diagnosis
-  category: medical
-  sensitivity: critical
-- id: salary
-  category: financial
-  sensitivity: medium
-- id: employee_id
-  category: identifier
-  sensitivity: medium
-- id: tax_id
-  category: financial_identifier
-  sensitivity: high
+  - id: patient_id
+    category: identifier
+    sensitivity: confidential
+
+  - id: diagnosis
+    category: medical
+    sensitivity: restricted
+
+  - id: salary
+    category: financial
+    sensitivity: confidential
+
+  - id: employee_id
+    category: identifier
+    sensitivity: internal
+
+  - id: tax_id
+    category: financial_identifier
+    sensitivity: restricted
+
+  - id: name
+    category: pii
+    sensitivity: confidential
+
+  - id: email
+    category: pii
+    sensitivity: confidential
+
+  - id: phone_number
+    category: pii
+    sensitivity: confidential
+
 edges:
-- source: patient_id
-  target: diagnosis
-  relationship: implies_phi
-  weight: 0.95
-- source: employee_id
-  target: salary
-  relationship: escalates_financial_sensitivity
-  weight: 0.7
-- source: tax_id
-  target: salary
-  relationship: strongly_escalates
-  weight: 0.9520000000000001
+  - source: patient_id
+    target: diagnosis
+    relationship: implies_phi
+    weight: 0.95
+
+  - source: employee_id
+    target: salary
+    relationship: escalates_financial_sensitivity
+    weight: 0.80
+
+  - source: tax_id
+    target: salary
+    relationship: strongly_escalates
+    weight: 0.95
+
+  - source: name
+    target: salary
+    relationship: pii_context
+    weight: 0.75
+
+  - source: email
+    target: patient_id
+    relationship: identifies_subject
+    weight: 0.80
